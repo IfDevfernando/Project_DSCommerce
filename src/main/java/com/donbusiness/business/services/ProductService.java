@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.donbusiness.business.DTO.ProductDTO;
+import com.donbusiness.business.DTO.ProductMinDTO;
 import com.donbusiness.business.entities.Product;
 import com.donbusiness.business.repositories.ProductRepository;
 import com.donbusiness.business.services.exceptions.ResourceDataBaseException;
@@ -34,10 +35,10 @@ public class ProductService {
 	}
 	//search all
 	@Transactional(readOnly = true)
-	public Page<ProductDTO> findAll(String name,Pageable pageable) {
+	public Page<ProductMinDTO> findAll(String name,Pageable pageable) {
 		
 		Page<Product> result=repository.searchByName(name, pageable);
-		return result.map(x->new ProductDTO(x));
+		return result.map(x->new ProductMinDTO(x));
 	}
 	//send new product
 	@Transactional

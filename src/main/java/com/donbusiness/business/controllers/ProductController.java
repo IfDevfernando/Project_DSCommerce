@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.donbusiness.business.DTO.ProductDTO;
+import com.donbusiness.business.DTO.ProductMinDTO;
 import com.donbusiness.business.services.ProductService;
 
 import jakarta.validation.Valid;
@@ -38,9 +39,9 @@ public class ProductController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<Page<ProductDTO>> findAll(@RequestParam (name="name",defaultValue = " ") String name,Pageable pageable) {
+	public ResponseEntity<Page<ProductMinDTO>> findAll(@RequestParam (name="name",defaultValue = " ") String name,Pageable pageable) {
 		//this function is in service
-		Page<ProductDTO> dto=productService.findAll(name,pageable);
+		Page<ProductMinDTO> dto=productService.findAll(name,pageable);
 		return ResponseEntity.ok(dto);
 	}
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
