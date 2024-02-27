@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.donbusiness.business.DTO.CategoryDTO;
 import com.donbusiness.business.DTO.ProductDTO;
 import com.donbusiness.business.DTO.ProductMinDTO;
+import com.donbusiness.business.entities.Category;
 import com.donbusiness.business.entities.Product;
 import com.donbusiness.business.repositories.ProductRepository;
 import com.donbusiness.business.services.exceptions.ResourceDataBaseException;
@@ -95,6 +97,14 @@ public class ProductService {
 		entity.setDescription(dto.getDescription());
 		entity.setPrice(dto.getPrice());
 		entity.setImgUrl(dto.getImgUrl());
+		
+		entity.getCategories().clear();
+		
+		for(CategoryDTO catDto: dto.getCategories()) {
+			Category cat = new Category();
+			cat.setId(catDto.getId());
+			entity.getCategories().add(cat);
+		}
 		
 	}
 	
