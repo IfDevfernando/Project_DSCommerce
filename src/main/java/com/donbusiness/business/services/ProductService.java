@@ -29,7 +29,6 @@ public class ProductService {
 	@Transactional(readOnly = true)
 	public ProductDTO findById(Long id) {
 		
-		
 		Product product=repository.findById(id).orElseThrow(()->new ResourceNotFoundException("Resource not found"));
 		return new ProductDTO(product);
 		
