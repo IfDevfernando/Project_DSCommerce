@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.donbusiness.business.DTO.CustomError;
 import com.donbusiness.business.DTO.ValidationError;
+import com.donbusiness.business.services.exceptions.ForbiddenException;
 import com.donbusiness.business.services.exceptions.ResourceDataBaseException;
 import com.donbusiness.business.services.exceptions.ResourceNotFoundException;
 
@@ -51,6 +52,16 @@ public class ControllerExceptionHandler {
 		}
 		
 		return ResponseEntity.status(status).body(err);
+	
+	}
+	
+	@ExceptionHandler(ForbiddenException.class)
+	public ResponseEntity<CustomError> forbidden(ForbiddenException e, HttpServletRequest request) {
+		HttpStatus status = HttpStatus.FORBIDDEN;
+	
+	CustomError err = new CustomError(Instant.now(),status.value(),e.getMessage() , request.getRequestURI());
+	
+	return ResponseEntity.status(status).body(err);
 	
 	}
 }
